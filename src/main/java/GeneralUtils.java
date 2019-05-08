@@ -176,14 +176,14 @@ public class GeneralUtils {
         String result = source;
         String current = source;
         while (sub1Index > -1) {
-            int sub2Index = current.indexOf(sub2, sub1Index);
+            int sub2Index = current.indexOf(sub2, sub1Index + sub1.length());
 //            System.out.println(sub1Index+" "+sub2Index);
 //            System.out.println(current.charAt(sub1Index)+ " "+current.charAt(sub2Index));
 //            System.out.println(current.substring(sub1Index, sub2Index));
             if (sub2Index > -1) {
                 count++;
                 if (toSave) {
-                    result = current.substring(0, sub1Index) + "$" + current.substring(sub2Index + sub2.length());
+                    result = current.substring(0, sub1Index) + "@" + current.substring(sub2Index + sub2.length());
 //                    System.out.println(current.substring(sub1Index, sub2Index)+sub2);
                     cut.add(current.substring(sub1Index, sub2Index)+sub2);
                 }
@@ -360,5 +360,14 @@ public class GeneralUtils {
             if (!index.equals(newItem) && index.equals(newItem.substring(0, 2) + "-" + index.substring(3, 5))) return index;
         }
         return "";
+    }
+
+    public static String parseTitle(String preTitle) {
+        String title = preTitle;
+        if (title.charAt(0) == '"') title = title.substring(1);
+        if (title.charAt(title.length() - 1) == '"') title = title.substring(0, title.length() - 1);
+        title = title.replaceAll("_", " ");
+        title = title.replaceAll("\\\\u2013", "-");
+        return title;
     }
 }

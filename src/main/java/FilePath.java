@@ -16,6 +16,7 @@ public enum FilePath {
     mystemCommand("mystem -cl "),
     articleIndexes("englishArticlesMSC.json"),
     categoriesMSC("MathCategoriesEN.xml"),
+    articleFormulas("englishArticlesFormulas.json"),
     WWW("http://www.mathEnc.ru");
 
     private String value;

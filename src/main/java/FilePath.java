@@ -2,19 +2,18 @@
  * Created by Катерина on 05.03.2019.
  */
 public enum FilePath {
-    BasePath("D:\\MathEncyclopedia\\src\\main\\resources"),
-    SUBCLASS("http://www.w3.org/2000/01/rdf-schema#subClassOf"),
-    ELEMENT("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
-    LANGSTRING("http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"),
-    OBJECTPROPERTY("http://www.w3.org/2002/07/owl#ObjectProperty"),
-    PROPERTY("http://www.mathEnc.ru"),
-    RDFS("http://www.w3.org/2000/01/rdf-schema"),
-    LABEL("http://www.w3.org/2000/01/rdf-schema#label"),
-    OWL("http://www.w3.org/2002/07/owl"),
-    HOME("D:\\disser1\\src\\test\\resources\\"),
-    COMMENT("http://www.w3.org/2000/01/rdf-schema#comment"),
-    ISDEFINEDBY("http://www.w3.org/2000/01/rdf-schema#isDefinedBy"),
-    SAMEAS("http://www.w3.org/2002/07/owl#sameAs"),
+    basePath("D:\\MathEncyclopedia\\src\\main\\resources\\"),
+    englishArticles("soma.json"),
+    englishArticlesParsed("englishArticles.txt"),
+    englishArticlesTranslated("englishArticlesTranslate.txt"),
+    englishArticlesNormalized("englishArticlesNormalized.txt"),
+    russianArticles("oldick.json"),
+    russianArticlesParsed("russianArticles.json"),
+    russianArticlesNormShort("russianArticlesNormShort.txt"),
+    russianArticlesNormFull("russianArticlesNormFull.json"),
+    expertMatch("matchExpert.json"),
+    articleMatch("articleMatch.json"),
+    mystemCommand("mystem -cl "),
     WWW("http://www.mathEnc.ru");
 
     private String value;

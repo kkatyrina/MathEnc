@@ -3,27 +3,15 @@
  */
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
-import org.apache.jena.atlas.test.Gen;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.sound.sampled.*;
 
 public class Article {
     private static List<String> keys = new ArrayList<>(Arrays.asList(

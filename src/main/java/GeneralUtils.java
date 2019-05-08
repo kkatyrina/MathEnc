@@ -1,6 +1,4 @@
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import org.apache.jena.base.Sys;
 
 import java.io.BufferedReader;
@@ -299,5 +297,68 @@ public class GeneralUtils {
         }
         result += source;
         return result;
+    }
+
+    public static void extractMSC(String title, String text, JsonObject MSC) {
+        Pattern pattern = Pattern.compile("Mathematics Subject Classification[^\\[]+\\[");
+        Matcher mathcer = pattern.matcher(text);
+
+        JsonArray indexes = new JsonArray();
+        if (MSC.keySet().contains(title)) {
+            indexes = MSC.get(title).getAsJsonArray();
+            MSC.remove(title);
+        }
+
+        while (mathcer.find()) {
+            String group = mathcer.group();
+            group = group.replaceAll("\\:", "");
+            group = group.replaceAll("\\[", "");
+            group = group.replaceAll("Mathematics Subject Classification", " ");
+            group = group.replaceAll("Primary", " ");
+            group = group.replaceAll("Secondary", " ");
+            String[] parts = group.split("[ ]+");
+            for (String index: parts) {
+//                System.out.println(index);
+                String[] splitted = index.split(",");
+                for (String code: splitted) {
+                    if (code.length() > 0) {
+                        code = code.replaceAll("--", "-").toUpperCase();
+                        if (code.length() == 3) code = code + "XX";
+                        if (code.length() == 4)
+                            code = code.substring(0, 2) + "-" + code.substring(2, 4);
+                        if (! indexes.contains(new JsonPrimitive(code)) && !isParent(indexes, code)) {
+                            indexes.add(code);
+                            String parent = findParent(indexes, code);
+                            if (parent.length() > 0) indexes.remove(new JsonPrimitive(parent));
+                        }
+                    }
+                }
+            }
+        }
+        if (indexes.size() > 0) MSC.add(title, indexes);
+    }
+
+    public static boolean isParent(JsonArray array, String newItem) {
+//        System.out.println("CHECK PARENT");
+        for (JsonElement value: array) {
+            String index = value.getAsString().replaceAll("\"", "");
+//            System.out.println("existing: "+index+" new: "+newItem);
+            if (newItem.equals(index.substring(0, 3) + "XX")) return true;
+            if (newItem.equals(index.substring(0, 2) + "-XX")) return true;
+            if (newItem.equals(index.substring(0, 2) + "-" + index.substring(3, 5))) return true;
+        }
+        return false;
+    }
+
+    public static String findParent(JsonArray array, String newItem) {
+//        System.out.println("FIND PARENT");
+        for (JsonElement value: array) {
+            String index = value.getAsString().replaceAll("\"", "");
+//            System.out.println("existing: "+index+" new: "+newItem);
+            if (!index.equals(newItem) && index.equals(newItem.substring(0, 3) + "XX")) return index;
+            if (!index.equals(newItem) && index.equals(newItem.substring(0, 2) + "-XX")) return index;
+            if (!index.equals(newItem) && index.equals(newItem.substring(0, 2) + "-" + index.substring(3, 5))) return index;
+        }
+        return "";
     }
 }

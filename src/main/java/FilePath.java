@@ -14,6 +14,8 @@ public enum FilePath {
     expertMatch("matchExpert.json"),
     articleMatch("articleMatch.json"),
     mystemCommand("mystem -cl "),
+    articleIndexes("englishArticlesMSC.json"),
+    categoriesMSC("MathCategoriesEN.xml"),
     WWW("http://www.mathEnc.ru");
 
     private String value;

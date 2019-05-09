@@ -17,6 +17,8 @@ public enum FilePath {
     articleIndexes("englishArticlesMSC.json"),
     categoriesMSC("MathCategoriesEN.xml"),
     articleFormulas("englishArticlesFormulas.json"),
+    pageRank("pageRank.json"),
+    getRussianArticlesAnnotated("russianArticlesAnnotated.json"),
     WWW("http://www.mathEnc.ru");
 
     private String value;

@@ -21,7 +21,7 @@ public class Article {
     ));
     public static void main(String[] args) {
         String basePath = FilePath.basePath.toString();
-        //Предобработка английских статей с сохранением в файл
+//        Предобработка английских статей с сохранением в файл
 //        parseEnglishArticles(FilePath.basePath.toString() + FilePath.englishArticles.toString(),
 //                FilePath.basePath.toString() + FilePath.englishArticlesParsed.toString());
 //
@@ -30,12 +30,12 @@ public class Article {
 //                FilePath.basePath.toString() + FilePath.englishArticlesTranslated.toString());
 
         //Нормализация английских статей с сохранением в файл
-        normalizeEnglishArticles(FilePath.basePath.toString() + FilePath.englishArticlesTranslated.toString(),
-                FilePath.basePath.toString() + FilePath.englishArticlesNormalized.toString());
+//        normalizeEnglishArticles(FilePath.basePath.toString() + FilePath.englishArticlesTranslated.toString(),
+//                FilePath.basePath.toString() + FilePath.englishArticlesNormalized.toString());
 
-//        //Предобработка русских статей с сохранением в файл
-//        parseRussianArticles(basePath + FilePath.russianArticles.toString(),
-//                basePath + FilePath.russianArticlesParsed.toString());
+        //Предобработка русских статей с сохранением в файл
+        parseRussianArticles(basePath + FilePath.russianArticles.toString(),
+                basePath + FilePath.russianArticlesParsed.toString());
 
         //Нормализация русских статей с сохранением полных и кратких версий
         normalizeRussianArticles(basePath + FilePath.russianArticlesParsed.toString(),
@@ -49,7 +49,7 @@ public class Article {
             JsonArray array = gson.fromJson(in, JsonArray.class);
             String articles = "";
 
-            for (int i = 0; i < 5; ++i) {
+            for (int i = 0; i < array.size(); ++i) {
                 JsonObject object = array.get(i).getAsJsonObject();
                 String title = GeneralUtils.parseTitle(object.get("name").getAsString());
                 String rawText = object.get("text").getAsString();
@@ -207,7 +207,7 @@ public class Article {
             String articles = "";
             JsonArray result = new JsonArray();
 
-            for (int i = 0; i < 5; ++i) {
+            for (int i = 0; i < array.size(); ++i) {
                 JsonObject object = array.get(i).getAsJsonObject();
                 String title = GeneralUtils.parseTitle(object.get("name").getAsString());
                 title = title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase();
@@ -299,7 +299,7 @@ public class Article {
                 String titleLemmas = GeneralUtils.runMystem(inputPath, outputPath, command, title);
                 String textLemmas = GeneralUtils.runMystem(inputPath, outputPath, command, text);
 
-                String shortTextLemmas = textLemmas.replaceAll("\\$", "");
+                String shortTextLemmas = textLemmas.replaceAll("@", "");
                 shortTextLemmas = shortTextLemmas.replaceAll("[ ]+", " ");
                 if (shortTextLemmas.length() > 2000) {
                     shortTextLemmas = shortTextLemmas.substring(0, 2000);

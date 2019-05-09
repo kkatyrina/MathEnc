@@ -33,7 +33,7 @@ public class Mapper {
 //            for (String s:toks) System.out.println(s);
             points.clear();
 //            for (String token : toks) System.out.println("map toks: "+token);
-            scores = GeneralUtils.getScoresShingles(toks, 10000, 2.0, false, points);
+            scores = GeneralUtils.getScoresShingles(toks, 10000, 6.0, false, points);
 
 //            for (Integer is : scores) System.out.println("score: " + is);
 //            for (Float id : points) System.out.println("point: " + id);

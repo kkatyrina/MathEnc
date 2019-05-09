@@ -30,11 +30,7 @@ public class Index {
             JsonArray array = new Gson().fromJson(in, JsonArray.class);
             for (int i = 0; i < array.size(); ++i) {
                 JsonObject object = array.get(i).getAsJsonObject();
-                String title = object.get("name").getAsString();
-                if (title.charAt(0) == '"') title = title.substring(1);
-                if (title.charAt(title.length()-1) == '"') title = title.substring(0, title.length()-1);
-                title = title.replaceAll("_", " ");
-                title = title.replaceAll("\\\\u2013", "-");
+                String title = GeneralUtils.parseTitle(object.get("name").getAsString());
 
                 String rawText = object.get("text").getAsString();
                 String newText = rawText.replaceAll("<[^>]*>", " ");

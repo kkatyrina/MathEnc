@@ -100,4 +100,27 @@ public class OntologyUtils {
         }
         return false;
     }
+
+    public static String findNearest(InfModel inf, String index) {
+        try {
+            String classURI = createNewResource(OntProperties.MSCClass.toString());
+            if (ifInstance(inf, classURI, createNewResource(index))) return index;
+            index = index.replaceAll("--", "-");
+            String first = index.substring(0, 3) + "XX";
+//        System.out.println("first: "+first);
+            if (ifInstance(inf, classURI, createNewResource(first))) return first;
+            String second = index.substring(0, 2) + "-" + index.substring(3, 5);
+//        System.out.println("second: "+second);
+            if (ifInstance(inf, classURI, createNewResource(second))) return second;
+            String third = index.substring(0, 2) + "-XX";
+//        System.out.println("third: "+third);
+            if (ifInstance(inf, classURI, createNewResource(third))) return third;
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(index);
+        }
+        return "";
+    }
 }

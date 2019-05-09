@@ -849,6 +849,7 @@ public class GeneralUtils {
         if (title.charAt(0) == '"') title = title.substring(1);
         if (title.charAt(title.length() - 1) == '"') title = title.substring(0, title.length() - 1);
         title = title.replaceAll("_", " ");
+        title = title.replaceAll("\\u2013", "-");
         title = title.replaceAll("\\\\u2013", "-");
         return title;
     }
@@ -859,9 +860,10 @@ public class GeneralUtils {
             JsonArray array = new Gson().fromJson(reader, JsonArray.class);
             for (int i = 0; i < array.size(); ++i) {
                 String title = array.get(i).getAsJsonObject().get("title").getAsString();
+                title = parseTitle(title);
                 int id = array.get(i).getAsJsonObject().get("id").getAsInt();
                 if (flag) {
-                    titles.add(title + id);
+                    titles.add(title + "_" + id);
                 }
                 else {
                     titles.add(title);
@@ -884,6 +886,7 @@ public class GeneralUtils {
             while ((line = in.readLine()) != null) {
                 String[] parts = line.split("[ ]+--:--[ ]+");
                 String preTerm = parts[0];
+                preTerm = parseTitle(preTerm);
                 if (parts.length > 1) {
                     text = parts[1];
                 }
@@ -891,7 +894,7 @@ public class GeneralUtils {
 //                    System.out.println(parts[0]);
 //                }
                 if (flag) {
-                    titles.add(preTerm + id);
+                    titles.add(preTerm + "_" + id);
                 }
                 else {
                     titles.add(preTerm);

@@ -6,15 +6,6 @@
   "Aleksandrov compactification": [
     "54D35"
   ],
-  "Artin–Hasse exponential": [
-    "11S80"
-  ],
-  "Baer–Specker group": [
-    "20K20"
-  ],
-  "Barban–Davenport–Halberstam theorem": [
-    "11N05"
-  ],
   "Bethe-Sommerfeld conjecture": [
     "35P20"
   ],
@@ -33,9 +24,6 @@
   ],
   "Cotes formulas": [
     "65D32"
-  ],
-  "De Bruijn–Newman constant": [
-    "11MXX"
   ],
   "Denumerant": [
     "05A17"
@@ -96,9 +84,6 @@
   "Least absolute residuals procedure": [
     "01A50"
   ],
-  "Legendre–Jacobi–Kronecker symbol": [
-    "11A15"
-  ],
   "Loss function": [
     "62C05"
   ],
@@ -123,9 +108,6 @@
   "Saccheri quadrangle": [
     "51M10",
     "01A50"
-  ],
-  "Schroeder–Bernstein theorem": [
-    "03E20"
   ],
   "Semi-cubic parabola": [
     "53A04"
@@ -183,9 +165,6 @@
   ],
   "Well-powered category": [
     "18A05"
-  ],
-  "Wiener–Ikehara theorem": [
-    "11M45"
   ],
   "Wolstenholme theorem": [
     "11A07"
@@ -1461,26 +1440,9 @@
     "90CXX",
     "93-XX"
   ],
-  "User:Camillo.delellis/sandbox": [
-    "49-XX",
-    "28AXX",
-    "34H05",
-    "34K35",
-    "65KXX",
-    "90CXX",
-    "93-XX"
-  ],
   "Coarea formula": [
     "49Q15",
     "28AXX",
-    "34H05",
-    "34K35",
-    "65KXX",
-    "90CXX",
-    "93-XX"
-  ],
-  "User:Dgmuc/sandbox": [
-    "49-XX",
     "34H05",
     "34K35",
     "65KXX",
@@ -1571,15 +1533,6 @@
     "45-XX",
     "57NXX",
     "47-XX",
-    "34H05",
-    "34K35",
-    "65KXX",
-    "90CXX",
-    "93-XX"
-  ],
-  "User:Luca.Spolaor/sandbox": [
-    "49-XX",
-    "28AXX",
     "34H05",
     "34K35",
     "65KXX",
@@ -1723,9 +1676,6 @@
   ],
   "Volume form": [
     "53B20"
-  ],
-  "User:Yakovenko/sandbox1": [
-    "53-XX"
   ],
   "Bendixson criterion": [
     "37-XX"
@@ -2424,18 +2374,6 @@
     "90CXX",
     "93-XX"
   ],
-  "User:Jjtorrens/BancoDePruebas": [
-    "46-XX",
-    "57NXX",
-    "58BXX",
-    "47-XX",
-    "48-XX",
-    "34H05",
-    "34K35",
-    "65KXX",
-    "90CXX",
-    "93-XX"
-  ],
   "Lp spaces": [
     "46E30",
     "57NXX",
@@ -2462,18 +2400,6 @@
   ],
   "Topological algebra": [
     "46HXX",
-    "57NXX",
-    "58BXX",
-    "47-XX",
-    "48-XX",
-    "34H05",
-    "34K35",
-    "65KXX",
-    "90CXX",
-    "93-XX"
-  ],
-  "User:Ulf Rehmann/PreTeX:Banach algebra": [
-    "46-XX",
     "57NXX",
     "58BXX",
     "47-XX",
@@ -3431,6 +3357,7 @@
     "20D35"
   ],
   "Baer-Specker group": [
+    "20K20",
     "06-XX",
     "18B35",
     "08-XX",
@@ -4816,23 +4743,6 @@
     "16E20",
     "18F25"
   ],
-  "User:Matteo.focardi/sandbox": [
-    "06-XX",
-    "18B35",
-    "08-XX",
-    "12-XX",
-    "14-XX",
-    "15-XX",
-    "17-XX",
-    "13DXX",
-    "20JXX",
-    "57TXX",
-    "55NXX",
-    "55UXX",
-    "19-XX",
-    "16E20",
-    "18F25"
-  ],
   "Minor": [
     "15AXX",
     "06-XX",
@@ -5156,7 +5066,7 @@
     "03B45"
   ],
   "Schroeder-Bernstein theorem": [
-    "03-XX"
+    "03E20"
   ],
   "Set theory": [
     "03EXX"
@@ -6940,7 +6850,7 @@
     "11B25"
   ],
   "Artin-Hasse exponential": [
-    "11-XX"
+    "11S80"
   ],
   "Asymptotics of arithmetic functions": [
     "11A25"
@@ -6949,7 +6859,7 @@
     "11A25"
   ],
   "Barban-Davenport-Halberstam theorem": [
-    "11-XX"
+    "11N05"
   ],
   "Bell numbers": [
     "11B73"
@@ -6988,7 +6898,7 @@
     "11A15"
   ],
   "De Bruijn-Newman constant": [
-    "11-XX"
+    "11MXX"
   ],
   "Dedekind sum": [
     "11F20"
@@ -7251,7 +7161,7 @@
     "11J06"
   ],
   "Legendre-Jacobi-Kronecker symbol": [
-    "11-XX"
+    "11A15"
   ],
   "Linear form in logarithms": [
     "11-XX"
@@ -7424,7 +7334,7 @@
     "11P05"
   ],
   "Wiener-Ikehara theorem": [
-    "11-XX"
+    "11M45"
   ],
   "Zeta-function method for regularization": [
     "11MXX",
@@ -7561,10 +7471,6 @@
     "65-XX"
   ],
   "Jacobi method": [
-    "65-XX",
-    "68-XX"
-  ],
-  "User:Joachim Draeger/sandbox": [
     "65-XX",
     "68-XX"
   ],
@@ -9135,16 +9041,6 @@
     "93-XX",
     "94-XX"
   ],
-  "User talk:EddieBates": [
-    "60FXX",
-    "11KXX",
-    "62-XX",
-    "90-XX",
-    "91-XX",
-    "92-XX",
-    "93-XX",
-    "94-XX"
-  ],
   "Edgeworth series": [
     "60F05",
     "11KXX",
@@ -9812,16 +9708,6 @@
     "62-XX",
     "91-XX",
     "92-XX",
-    "94-XX"
-  ],
-  "User:Ulf Rehmann/PreTeX:Poisson theorem": [
-    "60FXX",
-    "11KXX",
-    "62-XX",
-    "90-XX",
-    "91-XX",
-    "92-XX",
-    "93-XX",
     "94-XX"
   ],
   "Uniform distribution": [

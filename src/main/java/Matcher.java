@@ -33,7 +33,7 @@ public class Matcher {
         matchArticles(basePath + FilePath.articleMatch.toString());
     }
 
-    private static void matchArticles(String filePath) {
+    public static void matchArticles(String filePath) {
 
         int foundArticle = 0;
         JsonObject match = new JsonObject();

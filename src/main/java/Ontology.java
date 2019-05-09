@@ -33,11 +33,16 @@ public class Ontology {
     public static void main(String[] argv) {
         setUpOntology();
 
-//        loadEnglish(basePath + FilePath.englishArticles.toString());
-////        loadRussian(basePath + FilePath.russianArticlesAnnotated.toString());
+        loadEnglish(basePath + FilePath.englishArticles.toString());
+        loadRussian(basePath + FilePath.russianArticlesAnnotated.toString());
 
         loadIndexes(basePath + FilePath.MSCConcepts.toString(),
                 basePath + FilePath.MSCRelations.toString());
+
+        loadArticleMatch(basePath + FilePath.articleMatch.toString());
+
+        loadIndexArticle(basePath + FilePath.englishArticlesParsed,
+                basePath + FilePath.articleIndexes);
     }
 
     private static void setUpOntology() {
@@ -212,7 +217,89 @@ public class Ontology {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private static void loadArticleMatch(String filePath) {
+        try {
+            JsonReader reader = new JsonReader(new FileReader(filePath));
+            JsonObject articles = new Gson().fromJson(reader, JsonObject.class);
+            for (String key: articles.keySet()) {
+//                String idRus = key.substring(key.indexOf('_' + 1));
+                String value = articles.get(key).getAsString();
+                key = key.replaceAll(" ", "_");
+//                String idEn = value.substring(value.indexOf('_') + 1);
+                value = value.replaceAll(" ", "_");
+                value = value.replaceAll("\\u2013", "-");
 
+                String ruURI = createNewResource("Статья_" + key);
+                String enURI = createNewResource("Article_" + value);
+//                Resource ruClassResource = model.getResource(OntProperties.articleRuClass.toString());
+//                Resource enClassResource = model.getResource(OntProperties.articleEnClass.toString());
+                Resource ruResource = model.getResource(ruURI);
+                Resource enResource = model.getResource(enURI);
+                Property match = model.getProperty(OntProperties.WWW.toString() + OntProperties.articleMatch.toString());
+                Statement statement = model.createStatement(ruResource, match, enResource);
+                model.add(statement);
+
+            }
+            OutputStream out = new FileOutputStream(filename);
+            model.write(out);
+            out.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadIndexArticle(String originalPath, String matchPath) {
+        try {
+            JsonReader reader = new JsonReader(new FileReader(matchPath));
+            JsonObject articles = new Gson().fromJson(reader, JsonObject.class);
+            ArrayList<String> original = new ArrayList<>();
+            GeneralUtils.getArticlesTxt(originalPath, original, new ArrayList<>(), false);
+//            for (String s: original) {
+//                System.out.println(s);
+//            }
+            for (String key: articles.keySet()) {
+                key = key.replaceAll("–", "-");
+                int id = original.indexOf(key);
+                String articleURI = createNewResource("Article_" + key.replaceAll(" ", "_") + "_" + id);
+//                System.out.println(articleURI);
+                Resource articleResource = model.getResource(articleURI);
+                JsonArray indexes = articles.get(key).getAsJsonArray();
+                for (int i = 0; i < indexes.size(); ++i) {
+                    String index = indexes.get(i).getAsString().toUpperCase();
+                    index = index.replaceAll("\\.", "-");
+//                    System.out.println(index);
+                    String nearest = OntologyUtils.findNearest(inf, index);
+//                    String nearest = index;
+                    String articleClassURI = createNewResource(OntProperties.articleEnClass.toString());
+                    String indexClassURI = createNewResource(OntProperties.MSCClass.toString());
+                    String indexURI = createNewResource(nearest.toUpperCase());
+
+                    if (OntologyUtils.ifInstance(inf, articleClassURI, articleURI)) {
+                        Resource indexResource = model.getResource(indexURI);
+                        if (!OntologyUtils.ifInstance(inf, indexClassURI, indexURI)) {
+                            System.out.println(index);
+                            Resource classResource = model.getResource(indexClassURI);
+                            indexResource = model.getResource(createNewResource(index));
+                            Property instance = model.getProperty(OntProperties.instance.toString());
+                            Statement statement = model.createStatement(indexResource, instance, classResource);
+                            model.add(statement);
+                        }
+
+                        Property bindProperty = model.getProperty(OntProperties.WWW.toString() + OntProperties.MSCArticle);
+                        Statement bindStatement = model.createStatement(articleResource, bindProperty, indexResource);
+                        model.add(bindStatement);
+                    }
+                }
+            }
+            OutputStream out = new FileOutputStream(filename);
+            model.write(out);
+            out.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

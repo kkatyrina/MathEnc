@@ -3,15 +3,36 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Катерина on 12.04.2019.
  */
 
 public class MatcherTest {
+
+    static List<String> russian = new ArrayList<>();
+    static List<String> english = new ArrayList<>();
+    static List<String> enTitles = new ArrayList<>();
+    static List<String> ruTitles = new ArrayList<>();
+
     private static String basePath = FilePath.basePath.toString();
 
     public static void main(String[] argv) {
+        GeneralUtils.getArticlesJson(FilePath.basePath.toString() + FilePath.russianArticlesParsed.toString(),
+                ruTitles, new ArrayList<>(), true);
+        GeneralUtils.getArticlesTxt(FilePath.basePath.toString() + FilePath.russianArticlesNormShort.toString(),
+                new ArrayList<>(), russian,true);
+        GeneralUtils.getArticlesTxt(FilePath.basePath.toString() + FilePath.englishArticlesParsed.toString(),
+                enTitles, new ArrayList<>(), true);
+        GeneralUtils.getArticlesTxt(FilePath.basePath.toString() + FilePath.englishArticlesNormalized.toString(),
+                new ArrayList<>(), english, true);
+
+        russian = GeneralUtils.cleanNonCyrillic(russian);
+
+        Matcher.matchArticles(basePath + FilePath.articleMatch.toString());
+
         matchTest(basePath + FilePath.expertMatch.toString(),
                 basePath + FilePath.articleMatch.toString());
     }

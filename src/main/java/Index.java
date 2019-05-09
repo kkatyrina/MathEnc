@@ -22,7 +22,6 @@ public class Index {
         getMSCFromFile(basePath + FilePath.categoriesMSC.toString(),
                 basePath + FilePath.articleIndexes.toString());
 
-//        bindArticlesAndMSC();
     }
     private static void getMSCfromArticles(String filePath, String resultPath) {
         try {
@@ -31,6 +30,8 @@ public class Index {
             for (int i = 0; i < array.size(); ++i) {
                 JsonObject object = array.get(i).getAsJsonObject();
                 String title = GeneralUtils.parseTitle(object.get("name").getAsString());
+//                title = title.replaceAll(" ", "_");
+////                title = title + "_" + i;
 
                 String rawText = object.get("text").getAsString();
                 String newText = rawText.replaceAll("<[^>]*>", " ");
@@ -66,7 +67,11 @@ public class Index {
 
                 for (Element article:articles) {
                     String title = article.text();
-                    title = title.replaceAll("\\u2013", "-");
+                    title = GeneralUtils.parseTitle(title);
+//                    title = title.replaceAll(" ", "_");
+                    if (title.contains("User")) {
+                        continue;
+                    }
 
                     JsonArray indexes = new JsonArray();
                     if (MSC.keySet().contains(title)) {

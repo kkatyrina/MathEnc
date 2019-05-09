@@ -22,6 +22,8 @@ public enum FilePath {
     annotationExpert("annotationExpert.json"),
     annotationTest("annotationTest.json"),
     texterraAnnotations("texterra.json"),
+    MSCConcepts("11_MSC_Concepts.xml"),
+    MSCRelations("13_MSC_Relations.xml"),
     WWW("http://www.mathEnc.ru");
 
     private String value;

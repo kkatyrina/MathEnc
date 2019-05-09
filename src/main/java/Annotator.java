@@ -30,11 +30,10 @@ public class Annotator {
     private static List<String> articlesForAnnotation = new ArrayList<>();
     private static List<String> originalTitles = new ArrayList<>();
     private static List<String> originalArticles = new ArrayList<>();
-    private static String basePath = "";
+    private static String basePath = FilePath.basePath.toString();;
     private static float minScore = 0.1f;
 
     public static void main(String[] argv) {
-        basePath = FilePath.basePath.toString();
 
         GeneralUtils.getArticlesJson(basePath + FilePath.russianArticlesNormFull.toString(),
                 titlesForAnnotation, articlesToAnnotate, false);
@@ -49,9 +48,9 @@ public class Annotator {
 //        pageRank(basePath + FilePath.pageRank.toString(), articlesToAnnotate, titlesForAnnotation, originalTitles,
 //                titlesForAnnotation.get(0), new HashMap<>(), 0);
 
-//        annotateArticles(basePath + FilePath.russianArticlesParsed.toString(),
-//                basePath + FilePath.russianArticlesNormFull.toString(),
-//                basePath + FilePath.getRussianArticlesAnnotated.toString());
+        annotateArticles(basePath + FilePath.russianArticlesParsed.toString(),
+                basePath + FilePath.russianArticlesNormFull.toString(),
+                basePath + FilePath.russianArticlesAnnotated.toString());
     }
 
     private static void annotateArticles(String originalPath, String normPath, String resultPath) {
@@ -61,7 +60,7 @@ public class Annotator {
             JsonArray array = new Gson().fromJson(reader, JsonArray.class);
             reader = new JsonReader(new FileReader(originalPath));
             JsonArray arrayOriginal = new Gson().fromJson(reader, JsonArray.class);
-            for (int articleIdx = 0; articleIdx < 1; articleIdx++) {
+            for (int articleIdx = 0; articleIdx < array.size(); articleIdx++) {
 
                 JsonObject articleObject = array.get(articleIdx).getAsJsonObject();
                 String rawArticle = articleObject.get("text").getAsString();
@@ -72,12 +71,20 @@ public class Annotator {
                 List<Annotator.Data> result = annotate(rawArticle, titlesForAnnotation, originalTitles, articlesForAnnotation,
                         originalTitles.get(articleIdx), new HashMap<>(), minScore, 1f, 20, 20, 0,
                         1f, 0.01f, 150, 0.99f, articlesForAnnotation.get(articleIdx));
-                JsonArray bindArticlesIds = new JsonArray();
-                JsonArray bindArticlesTitles = new JsonArray();
-                for (Annotator.Data data : result) {
-                    bindArticlesTitles.add(data.title);
-                    bindArticlesIds.add(data.titleInd);
-                    int start = data.min;
+//                JsonArray bindArticlesIds = new JsonArray();
+//                JsonArray bindArticlesTitles = new JsonArray();
+                JsonArray annotations = new JsonArray();
+                for (Data data : result) {
+//                    System.out.println(data.title);
+                    JsonObject annotation = new JsonObject();
+                    annotation.addProperty("title",data.title);
+                    annotation.addProperty("titleId",data.titleInd);
+                    annotation.addProperty("start",data.min);
+                    annotation.addProperty("end",data.max);
+                    annotations.add(annotation);
+//                    bindArticlesTitles.add(data.title);
+//                    bindArticlesIds.add(data.titleInd);
+//                    int start = data.min;
                     String originalText = "";
                     int wordCount = data.min;
                     while (wordCount <= data.max) {
@@ -106,7 +113,7 @@ public class Annotator {
                 int cutCount = 0;
                 String annotatedArticle = "";
                 for (int i = 0; i < newArticle.length(); ++i) {
-                    if (newArticle.charAt(i) == '$' && cutCount < cuts.size()) {
+                    if (newArticle.charAt(i) == '@' && cutCount < cuts.size()) {
                         annotatedArticle += cuts.get(cutCount).getAsString();
                         ++cutCount;
                     }
@@ -115,13 +122,17 @@ public class Annotator {
                     }
                 }
                 annotatedArticle += articleObject.get("literature").getAsString();
+                annotatedArticle = annotatedArticle.replaceAll("newline", "\n");
+                annotatedArticle = annotatedArticle.replaceAll("return", "\r");
+                annotatedArticle = annotatedArticle.replaceAll("tabulation", "\t");
 //                System.out.println(annotatedArticle);
                 JsonObject newArticleObject = new JsonObject();
                 newArticleObject.addProperty("title", arrayOriginal.get(articleIdx).getAsJsonObject().get("title").getAsString());
                 newArticleObject.addProperty("id", arrayOriginal.get(articleIdx).getAsJsonObject().get("id").getAsInt());
                 newArticleObject.addProperty("text", annotatedArticle);
-                newArticleObject.add("bindIds", bindArticlesIds);
-                newArticleObject.add("bindTitles", bindArticlesTitles);
+//                newArticleObject.add("bindIds", bindArticlesIds);
+//                newArticleObject.add("bindTitles", bindArticlesTitles);
+                newArticleObject.add("annotations", annotations);
                 resultArray.add(newArticleObject);
                 System.out.println(articleIdx);
             }
@@ -163,8 +174,8 @@ public class Annotator {
         String[] toks = text.split(" ");
         List<Data> annotations = new ArrayList<Data>();
 
-        System.out.println("text: "+text);
-        System.out.println("context: "+context);
+//        System.out.println("text: "+text);
+//        System.out.println("context: "+context);
 //        for (String s: originalTitles) {
 //            System.out.println("orTitle: " + s);
 //        }
@@ -196,7 +207,7 @@ public class Annotator {
             pageRankSum += pageRank.get(key).getAsInt();
         }
         pageRankMedian = pageRankSum / (pageRankAmount * 1f);
-        System.out.println(pageRankMedian);
+//        System.out.println(pageRankMedian);
 
 
 //        for (String tok:toks)
@@ -359,17 +370,8 @@ public class Annotator {
 //                        System.out.println("Put: to "+i+" this "+pretendent.title+" "+pretendent.score);
                     }
                 }
-                System.out.println("Title = "+pretendent.title+" titleInd = "+pretendent.titleInd+" min = "+
-                        pretendent.min+" max = "+pretendent.max+" score = "+pretendent.score);
-//                if (counter.keySet().contains(pretendent.title)) {
-//                    int n = counter.get(pretendent.title).getAsInt();
-//                    n++;
-//                    counter.remove(pretendent.title);
-//                    counter.add(pretendent.title, new JsonPrimitive(n));
-//                }
-//                else {
-//                    counter.add(pretendent.title, new JsonPrimitive(1));
-//                }
+//                System.out.println("Title = "+pretendent.title+" titleInd = "+pretendent.titleInd+" min = "+
+//                        pretendent.min+" max = "+pretendent.max+" score = "+pretendent.score);
             }
             if (isRedirected) {
                 titleId--;

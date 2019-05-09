@@ -18,7 +18,10 @@ public enum FilePath {
     categoriesMSC("MathCategoriesEN.xml"),
     articleFormulas("englishArticlesFormulas.json"),
     pageRank("pageRank.json"),
-    getRussianArticlesAnnotated("russianArticlesAnnotated.json"),
+    russianArticlesAnnotated("russianArticlesAnnotated.json"),
+    annotationExpert("annotationExpert.json"),
+    annotationTest("annotationTest.json"),
+    texterraAnnotations("texterra.json"),
     WWW("http://www.mathEnc.ru");
 
     private String value;

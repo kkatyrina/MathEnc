@@ -863,6 +863,7 @@ public class GeneralUtils {
                 title = parseTitle(title);
                 int id = array.get(i).getAsJsonObject().get("id").getAsInt();
                 if (flag) {
+                    title = title.replaceAll(" ", "_");
                     titles.add(title + "_" + id);
                 }
                 else {
@@ -894,6 +895,7 @@ public class GeneralUtils {
 //                    System.out.println(parts[0]);
 //                }
                 if (flag) {
+                    preTerm = preTerm.replaceAll(" ", "_");
                     titles.add(preTerm + "_" + id);
                 }
                 else {

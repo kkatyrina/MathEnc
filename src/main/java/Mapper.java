@@ -66,7 +66,7 @@ public class Mapper {
         String[] toks = queryString.split(" ");
         scores = GeneralUtils.getScoresShingles(toks, 10000, 5.0, false, points);
         int count = 0;
-        while (scores.size() > count && count < 5) {
+        while (scores.size() > count && count < 8) {
             result.add(scores.get(count));
             ++count;
         }

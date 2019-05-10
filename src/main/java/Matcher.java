@@ -30,7 +30,9 @@ public class Matcher {
 
         russian = GeneralUtils.cleanNonCyrillic(russian);
 
-        matchArticles(basePath + FilePath.articleMatch.toString());
+//        matchArticles(basePath + FilePath.articleMatch.toString());
+
+        matchArticlesRussian(basePath + FilePath.russianArticlesRelated1);
     }
 
     public static void matchArticles(String filePath) {
@@ -99,7 +101,7 @@ public class Matcher {
         // поиск смысла жизни ...
 
 //        for (int i = 0; i < russianToMatch.size(); ++i) {
-        for (int i = 0; i < russian.size(); ++i) {
+        for (int i = 200; i < russian.size(); ++i) {
             List<Integer> res = Mapper.mapRussian(russian.get(i), i, russian, 1.0f);
             int count = 0;
             JsonArray binds = new JsonArray();
@@ -118,7 +120,7 @@ public class Matcher {
         }
         long finish = System.nanoTime();
         long timeConsumedMillis = finish - start;
-        System.out.println("found: "+ foundArticle);
+//        System.out.println("found: "+ foundArticle);
         System.out.println("time: "+ timeConsumedMillis + "ns");
         try {
             FileWriter file = new FileWriter(filePath);

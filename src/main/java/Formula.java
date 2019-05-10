@@ -11,10 +11,11 @@ import java.util.ArrayList;
 
 public class Formula {
 
+    private static String basePath = FilePath.basePath.toString();
+
     public static void main(String[] argv) {
-        String basePath = FilePath.basePath.toString();
-        getFormulas(basePath + FilePath.englishArticles.toString(),
-                basePath + FilePath.articleFormulas.toString());
+
+        getFormulas(basePath + FilePath.englishArticles, basePath + FilePath.articleFormulas);
     }
 
     private static void getFormulas(String filePath, String resultPath) {
@@ -27,6 +28,8 @@ public class Formula {
             for (int i = 0; i < array.size(); ++i) {
                 JsonObject object = array.get(i).getAsJsonObject();
                 String title = GeneralUtils.parseTitle(object.get("name").getAsString());
+                title = title.replaceAll(" ", "_");
+                title += ("_" + i);
                 String rawText = object.get("text").getAsString();
                 ArrayList<String> formulas = new ArrayList<>();
                 rawText = GeneralUtils.removeBetween("\\begin{equation}", "\\end{equation}", rawText, formulas, formulas.size(), true);
@@ -43,12 +46,12 @@ public class Formula {
                 }
             }
 //            System.out.println(result.keySet().size());
-            FileWriter fileMSC = new FileWriter(resultPath);
+            FileWriter file = new FileWriter(resultPath);
             gson = new GsonBuilder().setPrettyPrinting().create();
             String resultString = gson.toJson(result);
-            fileMSC.write(resultString);
-            fileMSC.flush();
-            fileMSC.close();
+            file.write(resultString);
+            file.flush();
+            file.close();
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -16,18 +16,17 @@ public enum OntProperties {
     relatedIndex("Связан_с_разделом"),
     articleMatch("Имеет_перевод"),
     MSCArticle("Относится_к_разделу"),
-    CLASS("http://www.w3.org/2002/07/owl#Class"),
-    SUBCLASS("http://www.w3.org/2000/01/rdf-schema#subClassOf"),
+    annotationArticle("Содержится_в_тексте_аннотация"),
+    annotationTerm("Ссылается_на_термин"),
+    annotationStart("Начало_ссылки"),
+    annotationEnd("Конец_ссылки"),
+    formulaArticle("Содержится_в_тексте_формула"),
+    articlesRelate("Релевантна_статье"),
+    seeAlso("http://www.w3.org/2000/01/rdf-schema#seeAlso"),
     instance("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
-    LANGSTRING("http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"),
-    OBJECTPROPERTY("http://www.w3.org/2002/07/owl#ObjectProperty"),
-    RDFS("http://www.w3.org/2000/01/rdf-schema"),
     label("http://www.w3.org/2000/01/rdf-schema#label"),
-    OWL("http://www.w3.org/2002/07/owl"),
-
     comment("http://www.w3.org/2000/01/rdf-schema#comment"),
-    isDefinedBy("http://www.w3.org/2000/01/rdf-schema#isDefinedBy"),
-    SAMEAS("http://www.w3.org/2002/07/owl#sameAs");
+    isDefinedBy("http://www.w3.org/2000/01/rdf-schema#isDefinedBy");
 
 
     private String value;

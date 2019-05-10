@@ -11,6 +11,8 @@ public enum FilePath {
     russianArticlesParsed("russianArticles.json"),
     russianArticlesNormShort("russianArticlesNormShort.txt"),
     russianArticlesNormFull("russianArticlesNormFull.json"),
+    russianArticlesRelated("russianArticlesRelated.json"),
+    russianArticlesRelated1("russianArticlesRelated1.json"),
     expertMatch("matchExpert.json"),
     articleMatch("articleMatch.json"),
     mystemCommand("mystem -cl "),
@@ -23,8 +25,7 @@ public enum FilePath {
     annotationTest("annotationTest.json"),
     texterraAnnotations("texterra.json"),
     MSCConcepts("11_MSC_Concepts.xml"),
-    MSCRelations("13_MSC_Relations.xml"),
-    WWW("http://www.mathEnc.ru");
+    MSCRelations("13_MSC_Relations.xml");
 
     private String value;
 

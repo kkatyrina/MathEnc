@@ -32,11 +32,6 @@ public class Ontology {
 
         loadRussian(basePath + FilePath.russianArticlesAnnotated.toString());
 
-        for (int iteration = 0; iteration < 8; ++iteration) {
-            setUpOntology();
-            loadRussianRelated(basePath + FilePath.russianArticlesRelated, iteration);
-        }
-
         loadEnglish(basePath + FilePath.englishArticles.toString());
 //
         loadIndexes(basePath + FilePath.MSCConcepts, basePath + FilePath.MSCRelations);
@@ -49,8 +44,10 @@ public class Ontology {
 //
         loadFormulas(basePath + FilePath.articleFormulas);
 
-
-
+        for (int iteration = 0; iteration < 2; ++iteration) {
+            setUpOntology();
+            loadRussianRelated(basePath + FilePath.russianArticlesRelated, iteration);
+        }
 
     }
 
@@ -434,16 +431,16 @@ public class Ontology {
                     ++count;
 //                    System.out.println("8");
                 }
-                if (keyCount % 200 == 0) {
-                    OutputStream out = new FileOutputStream(filename);
-                    System.out.println("count: " + count);
-//                System.out.println("9");
-                    model.write(out);
-                    out.close();
-                    Thread.sleep(100);
-                    setUpOntology();
-                    count = 0;
-                }
+//                if (keyCount % 200 == 0) {
+//                    OutputStream out = new FileOutputStream(filename);
+//                    System.out.println("count: " + count);
+////                System.out.println("9");
+//                    model.write(out);
+//                    out.close();
+//                    Thread.sleep(100);
+//                    setUpOntology();
+//                    count = 0;
+//                }
             }
             OutputStream out = new FileOutputStream(filename);
             System.out.println("iteration: "+ iteration);

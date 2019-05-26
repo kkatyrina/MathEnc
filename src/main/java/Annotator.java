@@ -126,6 +126,10 @@ public class Annotator {
                 annotatedArticle = annotatedArticle.replaceAll("return", "\r");
                 annotatedArticle = annotatedArticle.replaceAll("tabulation", "\t");
 //                System.out.println(annotatedArticle);
+                annotatedArticle = annotatedArticle.replaceAll("img SRC=\"/pictures/enc_mathematics/", "img SRC=\"/resources/images/articles/");
+//                System.out.println(annotatedArticle);
+                annotatedArticle = annotatedArticle.replaceAll("href=\"/dic.nsf/", "href=\"http://dic.academic.ru/dic.nsf/");
+//                System.out.println(annotatedArticle);
                 JsonObject newArticleObject = new JsonObject();
                 newArticleObject.addProperty("title", arrayOriginal.get(articleIdx).getAsJsonObject().get("title").getAsString());
                 newArticleObject.addProperty("id", arrayOriginal.get(articleIdx).getAsJsonObject().get("id").getAsInt());
